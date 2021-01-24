@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
 const articleRouter = require('./routes/articles.js')
+const mongoose = require('mongoose')
+
+const mongoUrl = 'mongodb+srv://FCC:' + process.env.PW + '@cluster0.1mvbk.mongodb.net/blog?retryWrites=true&w=majority'
+mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 
 const articles = [{
     title: 'working',
@@ -13,7 +17,7 @@ const articles = [{
 }]
 
 app.set('view engine', 'ejs')
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: false}))
 
 app.use('/articles', articleRouter)
 
