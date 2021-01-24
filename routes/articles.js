@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
     if(article == null) {
         res.redirect('/')
     } else {
-        res.render('articles/show.ejs', {article})
+        res.render('articles/show', {article})
     }
 })
 
