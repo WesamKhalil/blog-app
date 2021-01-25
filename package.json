@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/WesamKhalil/blog-app#readme",
   "dependencies": {
+    "dompurify": "^2.2.6",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "jsdom": "^16.4.0",
     "marked": "^1.2.7",
     "mongoose": "^5.11.13",
     "slugify": "^1.4.6"
