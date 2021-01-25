@@ -6,7 +6,7 @@ router.get('/new', (req, res) => {
     res.render('articles/new', {article: new Article()})
 })
 
-router.get('/:', async (req, res) => {
+router.get('/:slug', async (req, res) => {
     const article = await Article.findOne({slug: req.params.slug})
     if(article == null) {
         res.redirect('/')
@@ -22,6 +22,10 @@ router.post('/', async (req, res) => {
     } catch(err) {  
         res.render('articles/new', {article})
     }
+})
+
+router.delete('/:id', async (req, res) => {
+    await Article.findByIdAndDelete(req.params.id)
 })
 
 module.exports = router
