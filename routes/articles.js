@@ -20,35 +20,30 @@ router.get('/:slug', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
-    const article = await Article.create(req.body)
-    try {
-        res.redirect('articles/' + article.slug)
-    } catch(err) {  
-        res.render('articles/new', {article})
-    }
-})
+router.post('/', (req, res, next) => {
+    req.article = new Article()
+    next()
+}, saveAndRedirect('new'))
 
-router.put('/:id', async (req, res) => {
-    const article = await Article.findByIdAndUpdate(req.params.id, req.body)
-    try {
-        res.redirect('articles/' + article.slug)
-    } catch(err) {  
-        res.render('articles/new', {article})
-    }
-})
-
+router.put('/:id', async (req, res, next) => {
+    req.article = await Article.findById(req.params.id)
+    next()
+    }, saveAndRedirect('edit'))
 
 router.delete('/:id', async (req, res) => {
     await Article.findByIdAndDelete(req.params.id)
     res.redirect('/')
 })
 
-
-const saveAndRedirect = (path, article) => {
+function saveAndRedirect(path) {
     return async (req, res) => {
+        let article = req.article
+        article.title = req.body.title
+        article.description = req.body.description
+        article.markdown = req.body.markdown
         try {
-            res.redirect('articles/' + article.slug)
+            article = await article.save()
+            res.redirect('/articles/' + article.slug)
         } catch(err) {  
             res.render('articles/' + path, {article})
         }

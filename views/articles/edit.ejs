@@ -8,14 +8,18 @@
     </head>
     <body>
         <div class="container">
-            <h1 class="mb-4">New Article</h1>
-            <%- include('./_form.ejs') %>
+            <h1 class="mb-4">Edit Article</h1>
+            <form action="/articles/<%= article.id %>?_method=PUT" method="POST">
+                <%- include('./_form.ejs') %>
+            </form>
         </div>
+        <!--
         <script>
             const editForm = document.getElementById("editForm")
             editForm.addEventListener('submit', (e) => {
 
             })
         </script>
+        -->
     </body>
 </html>

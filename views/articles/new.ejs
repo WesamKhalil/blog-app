@@ -9,7 +9,9 @@
     <body>
         <div class="container">
             <h1 class="mb-4">New Article</h1>
-            <%- include('./_form.ejs') %>
+            <form action="/articles" method="POST" id="editForm">
+                <%- include('./_form.ejs') %>
+            </form>
         </div>
     </body>
 </html>
