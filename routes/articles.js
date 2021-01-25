@@ -11,8 +11,8 @@ router.get('/edit/:id', async (req, res) => {
     res.render('articles/edit', {article})
 })
 
-router.get('/:slug', async (req, res) => {
-    const article = await Article.findOne({slug: req.params.slug})
+router.get('/:id', async (req, res) => {
+    const article = await Article.findOne({_id: req.params.id})
     if(article == null) {
         res.redirect('/')
     } else {
@@ -43,7 +43,7 @@ function saveAndRedirect(path) {
         article.markdown = req.body.markdown
         try {
             article = await article.save()
-            res.redirect('/articles/' + article.slug)
+            res.redirect('/articles/' + article.id)
         } catch(err) {  
             res.render('articles/' + path, {article})
         }
