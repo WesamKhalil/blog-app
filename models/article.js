@@ -5,6 +5,7 @@ const { JSDOM } = require('jsdom')
 const domPurify = createDomPurifier(new JSDOM().window)
 const slugify = require('slugify')
 
+//The structure of our objects in our article document
 const articleSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -32,6 +33,8 @@ const articleSchema = new mongoose.Schema({
     }
 })
 
+//Every time the schema is called this function will run.
+//It sanitises out markdown html input so that no malicious code is passed through.
 articleSchema.pre('validate', function(next) {
     // if(this.title) {
     //     this.slug = slugify(this.title, {lower: true, strict: true})
