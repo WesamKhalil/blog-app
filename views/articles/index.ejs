@@ -19,21 +19,26 @@
                         </div>
                         <div class="card-text mb-2"><%= article.description %></div>
                         <a href="articles/<%= article.slug %>" class="btn btn-primary">Read More</a>
-                        <form action="/articles/<%= article.id %>" class="d-inline formDelete">
-                            <button class="btn btn-danger btnDelete">Delete</button>
+                        <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline formDelete">
+                            <button class="btn btn-danger">Delete</button>
                         </form>
                     </div>
                 </div>
             <% }) %>
         </div>
+        <!--
         <script>
-            const formDelete = document.getElementsByClassName("formDelete")
-            const btnDelete = Array.from(document.getElementsByClassName("btnDelete"))
-            btnDelete.map((val, ind) => {
-                val.addEventListener("click", () => {
-                    fetch(formDelete[ind].action, {method: "DELETE"})
+            const formDelete = Array.from(document.getElementsByClassName("formDelete"))
+            formDelete.map(val => {
+                val.addEventListener("submit", (e) => {
+                    e.preventDefault()
+                    fetch(val.action, {method: "DELETE"}).then(result => {
+                        console.log(result)
+                        //window.location.href = result
+                    })
                 })  
             })
         </script>
+        -->
     </body>
 </html>

@@ -3,12 +3,14 @@ const app = express()
 const articleRouter = require('./routes/articles.js')
 const mongoose = require('mongoose')
 const Article = require('./models/article.js')
+const methodOverride = require('method-override')
 
 const mongoUrl = 'mongodb+srv://FCC:' + process.env.PW + '@cluster0.1mvbk.mongodb.net/blog?retryWrites=true&w=majority'
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
+app.use(methodOverride('_method'))
 
 app.get('/', async (req, res) => {
     const articles = await Article.find().sort({date: 'desc'})

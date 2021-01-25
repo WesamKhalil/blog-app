@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const marked = require('marked')
 const createDomPurifier = require('dompurify')
 const { JSDOM } = require('jsdom')
-const dompurify = createDomPurifier(new JSDOM().window)
+const domPurify = createDomPurifier(new JSDOM().window)
 const slugify = require('slugify')
 
 const articleSchema = new mongoose.Schema({
@@ -37,7 +37,7 @@ articleSchema.pre('validate', function(next) {
         this.slug = slugify(this.title, {lower: true, strict: true})
     }
     if(this.markdown) {
-        this.sanitisedHTML = dompurify.sanitize(marked(this.markdown))
+        this.sanitisedHTML = domPurify.sanitize(marked(this.markdown))
     }
     next()
 })
